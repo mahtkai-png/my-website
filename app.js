@@ -1,1 +1,2 @@
-alert("hello world!")
+const firstpokemons = ["ニャオハ","ホゲータ","クワッス"]
+console.log(firstpokemons [1]);
