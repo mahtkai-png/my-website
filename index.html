@@ -1,12 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>画面上にコンソールログを表示</title>
 </head>
 <body>
-   <script src="./app.js"></scriptsrc></script>
+
+  <h1>画面上のコンソール出力</h1>
+  <!-- ログを表示するエリア -->
+  <div id="console" style="background: #222; color: #0f0; padding: 10px; font-family: monospace; white-space: pre-wrap;"></div>
+
+  <script>
+    // 元の console.log を退避
+    const originalLog = console.log;
+    const consoleDiv = document.getElementById('console');
+
+    // console.log をオーバーライド
+    console.log = function(...args) {
+      // 本来のコンソールにも出力（デベロッパーツール等で見たい場合）
+      originalLog.apply(console, args);
+
+      // 引数をスペース区切りなどの文字列に変換してHTMLに追加
+      const message = args.map(arg => 
+        typeof arg === 'object' ? JSON.stringify(arg) : arg
+      ).join(' ');
+
+      consoleDiv.innerHTML += message + '<br>';
+    };
+
+    // テスト出力
+    console.log("こんにちは、Web画面です！");
+    console.log("計算結果:", 10 + 20);
+  </script>
+
 </body>
 </html>
-
